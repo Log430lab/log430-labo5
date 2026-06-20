@@ -23,13 +23,13 @@ jobs:
       - name: Creer fichier .env
         run: |
           echo "DB_HOST=127.0.0.1" >> .env
-          echo "DB_PORT=${{ vars.DB_PORT }}" >> .env
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
           echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
           echo "DB_USER=${{ secrets.DB_USER }}" >> .env
           echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
           echo "REDIS_HOST=127.0.0.1" >> .env
-          echo "REDIS_PORT=${{ vars.REDIS_PORT }}" >> .env
-          echo "REDIS_DB=${{ vars.REDIS_DB }}" >> .env
+          echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> .env
+          echo "REDIS_DB=${{ secrets.REDIS_DB }}" >> .env
 
       - name: Démarrer les services
         run: |
