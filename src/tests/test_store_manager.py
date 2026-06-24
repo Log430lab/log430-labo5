@@ -6,6 +6,7 @@ Auteurs : Gabriel C. Ullmann, Fabio Petrillo, 2025
 
 import json
 import uuid
+from unittest.mock import patch, MagicMock
 from logger import Logger
 import pytest
 from store_manager import app
@@ -21,8 +22,14 @@ def test_health(client):
     assert result.status_code == 200
     assert result.get_json() == {'status':'ok'}
 
-def test_stock_flow(client):
+@patch('orders.commands.write_order.requests.post')
+def test_stock_flow(mock_post, client):
     """Smoke test for complete stock management flow"""
+    mock_response = MagicMock()
+    mock_response.status_code = 201
+    mock_response.json.return_value = {"payment_id": 1}
+    mock_post.return_value = mock_response
+
     logger = Logger.get_instance("test")
     
     # 1. Create a product (POST /products)
