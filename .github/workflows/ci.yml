@@ -5,6 +5,9 @@ on:
     branches: [ main, master ]
   pull_request:
 
+env:
+  PYTHONDONTWRITEBYTECODE: 1
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -70,9 +73,6 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
-      - name: Nettoyer les fichiers cache Python
-        run: sudo find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
-
       - name: Checkout dépot
         uses: actions/checkout@v4
 
